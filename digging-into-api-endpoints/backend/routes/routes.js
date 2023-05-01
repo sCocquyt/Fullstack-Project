@@ -1,73 +1,241 @@
 const express = require('express')
 const router = express.Router()
-const NuevanSchema = require('../models/Nuevan.js')
+const memberSchema = require('../models/member.js')
+const presentationSchema = require('../models/presentation.js')
+const execMeetingSchema = require('../models/exec-meeting.js')
+const headsMeetingSchema = require('../models/heads-meeting.js')
+
 const { Schema } = require('mongoose')
 
-router.get('/', (req, res) => {
-    NuevanSchema.find({
+// member routes
+router.get('/members', (req, res) => {
+    memberSchema.find({
     })
-    .then(nuevans => {
-      console.log("succesfully got entire db!")
-      console.log(nuevans)
-      res.json(nuevans)
-    })
-    .catch(err => {
-      console.error(err)
-    })
-})
-
-router.get('/:id', (req, res) => {
-    NuevanSchema.findById(req.params.id)
-    .then(nuevan => {
-      console.log("succesfully got one!")
-      console.log(nuevan)
-      res.json(nuevan)
+    .then(members => {
+      console.log("succesfully got entire member db!")
+      res.json(members)
     })
     .catch(err => {
       console.error(err)
     })
 })
 
-router.post('/add', (req, res) => {
-  const newNuevan = new NuevanSchema(
+router.get('/member/:id', (req, res) => {
+  memberSchema.findById(req.params.id)
+  .then(members => {
+    console.log("succesfully got entire member db!")
+    res.json(members)
+  })
+  .catch(err => {
+    console.error(err)
+  })
+})
+
+router.post('/add-member', (req, res) => {
+  const newMember = new memberSchema(
     {
-    name:req.body.name, 
-    email:req.body.email, 
-    role:req.body.role, 
-    grade:req.body.grade
+    firstName:req.body.firstName, 
+    lastName:req.body.lastName,
+    grade: req.body.grade,
+    email:req.body.email,
+    status:req.body.status,
+    reviewTeam:req.body.reviewTeam 
     }
   );
-  newNuevan.save()
-  .then(nuevan =>{
-    console.log("added to db!!!!!")
-    res.json("added to db")
+  newMember.save()
+  .then(member =>{
+    console.log("member added to db!")
+    res.json("member added to db!")
   })
   .catch(err => {
     console.error(err);
   })
 })
 
-router.put('/:email', (req, res) => {
-  NuevanSchema.findOneAndUpdate({email:req.params.email}, req.body)
-  .then(nuevan => {
-    console.log("successfully updated!")
-    res.json("successfully updated!")
+router.put('/member/:email', (req, res) => {
+  memberSchema.findOneAndUpdate({email:req.params.email}, req.body)
+  .then(member => {
+    console.log("member successfully updated!")
+    res.json("member successfully updated!")
   })
   .catch(err => {
     console.error(err);
   })
 })
 
-//TODO: change '/' below to be by id
-router.delete('/:email', (req, res) => {
-  NuevanSchema.findOneAndDelete({email:req.params.email}, req.body)
-  .then(nuevan => {
-    console.log("successfully deleted!")
-    res.json("successfully deleted!")
+router.delete('/member/:email', (req, res) => {
+  memberSchema.findOneAndDelete({email:req.params.email}, req.body)
+  .then(member => {
+    console.log("member successfully deleted!")
+    res.json("member successfully deleted!")
   })
   .catch(err => {
     console.error(err);
   })
+})
+
+// presentation routes
+router.get('/presentations', (req, res) => {
+  presentationSchema.find({
+  })
+  .then(presentation => {
+    console.log("succesfully got entire presentation db!")
+    res.json(presentation)
+  })
+  .catch(err => {
+    console.error(err)
+  })
+})
+
+router.post('/add-presentation', (req, res) => {
+const newPresentation = new presentationSchema(
+  {
+  speaker:req.body.speaker,
+  role:req.body.role,
+  month:req.body.month,
+  day:req.body.day,
+  year:req.body.year,
+  title:req.body.title
+  }
+);
+newPresentation.save()
+.then(presentation =>{
+  console.log("presentation added to db!")
+  res.json("presentation added to db!")
+})
+.catch(err => {
+  console.error(err);
+})
+})
+
+router.put('/presentation/:title', (req, res) => {
+presentationSchema.findOneAndUpdate({email:req.params.title}, req.body)
+.then(presentation => {
+  console.log("presentation successfully updated!")
+  res.json("presentation successfully updated!")
+})
+.catch(err => {
+  console.error(err);
+})
+})
+
+router.delete('/presentation/:title', (req, res) => {
+presentationSchema.findOneAndDelete({email:req.params.email}, req.body)
+.then(presentation => {
+  console.log("presentation successfully deleted!")
+  res.json("presentation successfully deleted!")
+})
+.catch(err => {
+  console.error(err);
+})
+})
+
+// exec meeting routes
+router.get('/exec-meetings', (req, res) => {
+  execMeetingSchema.find({
+  })
+  .then(execMeeting => {
+    console.log("succesfully got entire exec meeting db!")
+    res.json(execMeeting)
+  })
+  .catch(err => {
+    console.error(err)
+  })
+})
+
+router.post('/add-exec-meeting', (req, res) => {
+const newExecMeeting = new execMeetingSchema(
+  {
+    month:req.body.month,
+    day:req.body.day,
+    year:req.body.year,
+  attendees:req.body.attendees
+  }
+);
+newExecMeeting.save()
+.then(execMeeting =>{
+  console.log("exec meeting added to db!")
+  res.json("exec meeting added to db!")
+})
+.catch(err => {
+  console.error(err);
+})
+})
+
+router.put('/exec-meeting/:date', (req, res) => {
+execMeetingSchema.findOneAndUpdate({email:req.params.date}, req.body)
+.then(execMeeting => {
+  console.log("exec meeting successfully updated!")
+  res.json("exec meeting successfully updated!")
+})
+.catch(err => {
+  console.error(err);
+})
+})
+
+router.delete('/exec-meeting/:date', (req, res) => {
+execMeetingSchema.findOneAndDelete({email:req.params.date}, req.body)
+.then(execMeeting => {
+  console.log("exec meeting successfully deleted!")
+  res.json("exec meeting successfully deleted!")
+})
+.catch(err => {
+  console.error(err);
+})
+})
+
+// heads meeting routes
+router.get('/heads-meetings', (req, res) => {
+  headsMeetingSchema.find({
+  })
+  .then(headsMeeting => {
+    console.log("succesfully got entire heads meeting db!")
+    res.json(headsMeeting)
+  })
+  .catch(err => {
+    console.error(err)
+  })
+})
+
+router.post('/add-heads-meeting', (req, res) => {
+const newHeadsMeeting = new headsMeetingSchema(
+  {
+    month:req.body.month,
+    day:req.body.day,
+    year:req.body.year,
+    attendees:req.body.attendees
+  }
+);
+newHeadsMeeting.save()
+.then(headsMeeting =>{
+  console.log("heads meeting added to db!")
+  res.json("heads meeting added to db!")
+})
+.catch(err => {
+  console.error(err);
+})
+})
+
+router.put('/heads-meeting/:date', (req, res) => {
+headsMeetingSchema.findOneAndUpdate({email:req.params.date}, req.body)
+.then(headsMeeting => {
+  console.log("heads meeting successfully updated!")
+  res.json("heads meeting successfully updated!")
+})
+.catch(err => {
+  console.error(err);
+})
+})
+
+router.delete('/heads-meeting/:date', (req, res) => {
+headsMeetingSchema.findOneAndDelete({email:req.params.date}, req.body)
+.then(headsMeeting => {
+  console.log("heads meeting successfully deleted!")
+  res.json("heads meeting successfully deleted!")
+})
+.catch(err => {
+  console.error(err);
+})
 })
 
 module.exports = router
