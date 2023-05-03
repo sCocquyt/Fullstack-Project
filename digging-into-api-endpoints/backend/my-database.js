@@ -11,7 +11,10 @@ class Database {
 
 _connect() {
      mongoose.connect(`mongodb://${server}/${database}`, { useNewUrlParser: true, useUnifiedTopology: true })
-       .then(dbSuccess())
+       .then(() => {
+        // mongoose.connect.db.dropDatabase()
+        dbSuccess()
+      })
        .catch(err => {
          console.error('Database connection error')
        })
