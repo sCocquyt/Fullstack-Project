@@ -1,0 +1,183 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.member-form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.menu-container {
+    color: #DD6E42;
+    background-color: #0028BC;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    /* position: fixed; */
+}
+
+.menu {
+    border: 0px solid #fff;
+    width: 1375px;
+    display: flex;
+    justify-content: space-between;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.right-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bottom-end {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.about {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.people {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.resources {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.link-formatting {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    margin-right: 30px;
+}
+
+.add-container {
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 200px;
+}
+
+.name-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.names {
+    color: #0028BC;
+    font-weight: bold;
+}
+
+.member {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.bold-title {
+    color: #B8E81E;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 100px;
+    display: flex;
+    justify-content: center;
+    text-shadow: 2px 2px 5px #0028BC;
+    vertical-align: text-top;
+    margin-bottom: 10px;
+
+}
+
+.home-image {
+    /* margin-right: 10px; */
+    width: 4%;
+    height: auto;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.red-asterisk {
+    color: red;
+}
+
+.submit-button {
+    margin-top: 5px;
+    width: 150px;
+}
+
+.home-image1 {
+    width: 450px;
+    display: flex;
+    padding: 20px;
+    margin-right: 20px;
+}
+
+.homepage-container {
+    display: flex;
+    flex-direction: row;
+    padding: 50px;
+}
+
+.general-text {
+    margin-top: 20px;
+    padding-right: 30px;
+}
+
+.member-container {
+    display: flex;
+    flex-direction: row;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 30px;
+}
+
+.members-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.first-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-photos {
+    width: 50px;
+    height: auto;
+}

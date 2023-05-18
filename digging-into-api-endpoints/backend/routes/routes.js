@@ -32,16 +32,7 @@ router.get('/member/:id', (req, res) => {
 })
 
 router.post('/add-member', (req, res) => {
-  const newMember = new memberSchema(
-    {
-    firstName:req.body.firstName, 
-    lastName:req.body.lastName,
-    grade: req.body.grade,
-    email:req.body.email,
-    status:req.body.status,
-    reviewTeam:req.body.reviewTeam 
-    }
-  );
+  const newMember = new memberSchema(req.body);
   newMember.save()
   .then(member =>{
     console.log("member added to db!")
@@ -88,16 +79,7 @@ router.get('/presentations', (req, res) => {
 })
 
 router.post('/add-presentation', (req, res) => {
-const newPresentation = new presentationSchema(
-  {
-  speaker:req.body.speaker,
-  role:req.body.role,
-  month:req.body.month,
-  day:req.body.day,
-  year:req.body.year,
-  title:req.body.title
-  }
-);
+const newPresentation = new presentationSchema(req.body);
 newPresentation.save()
 .then(presentation =>{
   console.log("presentation added to db!")
@@ -144,14 +126,7 @@ router.get('/exec-meetings', (req, res) => {
 })
 
 router.post('/add-exec-meeting', (req, res) => {
-const newExecMeeting = new execMeetingSchema(
-  {
-    month:req.body.month,
-    day:req.body.day,
-    year:req.body.year,
-  attendees:req.body.attendees
-  }
-);
+const newExecMeeting = new execMeetingSchema(req.body);
 newExecMeeting.save()
 .then(execMeeting =>{
   console.log("exec meeting added to db!")
@@ -198,14 +173,7 @@ router.get('/heads-meetings', (req, res) => {
 })
 
 router.post('/add-heads-meeting', (req, res) => {
-const newHeadsMeeting = new headsMeetingSchema(
-  {
-    month:req.body.month,
-    day:req.body.day,
-    year:req.body.year,
-    attendees:req.body.attendees
-  }
-);
+const newHeadsMeeting = new headsMeetingSchema(req.body);
 newHeadsMeeting.save()
 .then(headsMeeting =>{
   console.log("heads meeting added to db!")

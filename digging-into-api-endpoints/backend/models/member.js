@@ -12,8 +12,7 @@ const memberSchema = new Schema({
     },
     grade: {
         type: Number,
-        Min: 9,
-        Max: 12
+        enum: [0, 9, 10, 11, 12]
     },
     email: {
         type: String,
@@ -22,13 +21,16 @@ const memberSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ["pre-training", "training", "review-team", "head", "off-boarded"],
+        enum: ["Pre-training", "Training", "Review team member", "Head", "Off-boarded", "Faculty advisor", "empty"],
     },
     reviewTeam: {
       type: Number,
-      min: 1,
-      max: 4,
+      enum: [0, 1, 2, 3, 4],
     },
+    photo: {
+        type: String,
+        // required: true
+    }
 });
 
 
