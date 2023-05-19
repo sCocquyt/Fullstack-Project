@@ -138,7 +138,8 @@
 
 .submit-button {
     margin-top: 5px;
-    width: 150px;
+    width: 200px;
+    background-color: #9EDAED;
 }
 
 .home-image1 {
@@ -180,4 +181,10 @@
 .profile-photos {
     width: 50px;
     height: auto;
+}
+
+.second-row {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
 }

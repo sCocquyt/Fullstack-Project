@@ -3,8 +3,9 @@ import reactLogo from './assets/react.svg'
 import axios from 'axios'
 import './index.css'
 import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
-import image1 from "./images/datas-circle.png"
-import image2 from "./images/datas-logo.png"
+import Resizer from "react-image-file-resizer";
+import image1 from "./images/datas-circle.png";
+import image2 from "./images/datas-logo.png";
 
 function HomeRightEnd(){
   return(
@@ -27,7 +28,7 @@ function HomeRightEnd(){
 
 }
 
-function FirstNameInput(){
+function FirstNameInput(props){
   return(
     <div className="input-container">
       <input
@@ -35,16 +36,16 @@ function FirstNameInput(){
         id="firstNameInput"
         key={"firstName"}
         type="text"
-        placeholder={"Add first name"}
+        placeholder={props.placeholder}
       />
       <div className="red-asterisk">
-        *
+        {props.redAsterisk}
       </div>
     </div>
   )
 }
 
-function LastNameInput(){
+function LastNameInput(props){
   return(
     <div className="input-container">
       <input
@@ -52,19 +53,19 @@ function LastNameInput(){
         id="lastNameInput"
         key={"lastName"}
         type="text"
-        placeholder={"Add last name"}
+        placeholder={props.placeholder}
       />
       <div className="red-asterisk">
-        *
+        {props.redAsterisk}
       </div>
     </div> 
   )
 }
 
-function GradeInput(){
+function GradeInput(props){
   return(
-    <select className="inputs" id="gradeInput" key={"grade"} type="number" placeholder={"Add grade"}>
-      <option value={0}>Add grade</option>
+    <select className="inputs" id="gradeInput" key={"grade"} type="number" placeholder={props.placeholder}>
+      <option value={0}>{props.placeholder}</option>
       <option value={9}>9</option>
       <option value={10}>10</option>
       <option value={11}>11</option>
@@ -73,7 +74,7 @@ function GradeInput(){
   )
 }
 
-function EmailInput(){
+function EmailInput(props){
   return(
     <div className="input-container">
       <input
@@ -81,20 +82,20 @@ function EmailInput(){
         id="emailInput"
         key={"email"}
         type="text"
-        placeholder={"Add email"}
+        placeholder={props.placeholder}
       />
       <div className="red-asterisk">
-        *
+        {props.redAsterisk}
       </div>
     </div>
   )
 }
 
-function StatusInput(){
+function StatusInput(props){
   return(
     <div className="input-container">
-      <select className="inputs" id="statusNameInput" key={"status"} type="text" placeholder={"Add status"}>
-        <option value="empty">Add status</option>
+      <select className="inputs" id="statusNameInput" key={"status"} type="text" placeholder={props.placeholder}>
+        <option value="empty">{props.placeholder}</option>
         <option value="Pre-training">Pre-training</option>
         <option value="Training">Training</option>
         <option value="Review team member">Review team member</option>
@@ -107,10 +108,10 @@ function StatusInput(){
 
 }
 
-function ReviewTeamInput(){
+function ReviewTeamInput(props){
   return(
-    <select className="inputs" id="reviewTeamInput" key={"reviewTeam"} type="number" placeholder={"Add review team"}>
-      <option value={0}>Add review team</option>
+    <select className="inputs" id="reviewTeamInput" key={"reviewTeam"} type="number" placeholder={props.placeholder}>
+      <option value={0}>{props.placeholder}</option>
       <option value={1}>1</option>
       <option value={2}>2</option>
       <option value={3}>3</option>
@@ -120,13 +121,13 @@ function ReviewTeamInput(){
 
 }
 
-function PhotoInput(){
+function PhotoInput(props){
   return(
     <input
       className="inputs"
       key={"photo"}
       type="file"
-      placeholder={"Add photo"}
+      placeholder={props.placeholder}
       accept="image/*"
     /> 
   )
@@ -212,11 +213,29 @@ class MemberDisplay extends React.Component {
     event.preventDefault()
     console.log(event)
     this.clearState()
+
+    // const resizeImage = (imageFile) => {
+    //   try {
+    //     Resizer.imageFileResizer(
+    //       imageFile,
+    //       10,
+    //       10,
+    //       "JPEG",
+    //       100,
+    //       0
+    //     )
+    //   } catch(err){
+    //     console.log(err)
+    //   }
+    // }
     
     let photoToUpload = undefined
     try {
+      // let resizedImage = resizeImage(event.target[6].files[0])
       console.log(event.target[6].files[0])
+      // console.log(resizedImage)
       photoToUpload = URL.createObjectURL(event.target[6].files[0])
+      // photoToUpload = URL.createObjectURL(resizedImage)
       console.log(photoToUpload) 
       console.log(this.state.photos)
     } catch (err){
@@ -272,6 +291,18 @@ class MemberDisplay extends React.Component {
     .catch(err => {
       console.error(err)
     })
+  }
+
+  onChangeClick(event){
+    if (event.target[0].value == ""){
+      alert("Please make sure all required fields are filled")
+      this.getRequest()
+      this.renderMembers()
+      document.getElementById("deleteForm").reset()
+    }
+    event.preventDefault()
+    axios.put()
+
   }
 
   renderMembers() {
@@ -366,13 +397,13 @@ class MemberDisplay extends React.Component {
                   <label htmlFor="delete an item">Add a person:</label>
                   <form id="addForm" method="post" onSubmit={this.onAddClick}>
                     <div className="member-form">
-                      <FirstNameInput/>
-                      <LastNameInput/>
-                      <GradeInput/>
-                      <EmailInput/>
-                      <StatusInput/>
-                      <ReviewTeamInput/>
-                      <PhotoInput/>
+                      <FirstNameInput placeholder="Add first name" redAsterisk="*"/>
+                      <LastNameInput placeholder="Add last name" redAsterisk="*"/>
+                      <GradeInput placeholder="Add grade"/>
+                      <EmailInput placeholder="Add email" redAsterisk="*"/>
+                      <StatusInput placeholder="Add status"/>
+                      <ReviewTeamInput placeholder="Add review team"/>
+                      <PhotoInput placeholder="Add profile photo"/>
                       <button className="submit-button" type="submit">Add member</button>
                     </div>
                   </form>
@@ -397,15 +428,22 @@ class MemberDisplay extends React.Component {
                   </form>
                 </div>
               </div>
-              {/* <div className="second-row">
+              <div className="second-row">
                 <label htmlFor="delete an item">Change a person: &nbsp;</label>
-                <form method="post" id="deleteForm" onSubmit={this.onDeleteClick}>
+                <form method="post" id="changeForm" onSubmit={this.onChangeClick}>
                   <div className="member-form">
-                    <EmailInput/>
+                    <EmailInput placeholder="Add email of person to change" redAsterisk="*"/>
+                    <FirstNameInput placeholder="Enter new first name" redAsterisk="*"/>
+                    <LastNameInput placeholder="Enter new last name" redAsterisk="*"/>
+                    <GradeInput placeholder="Enter new grade"/>
+                    <EmailInput placeholder="Enter new email" redAsterisk="*"/>
+                    <StatusInput placeholder="Enter new status"/>
+                    <ReviewTeamInput placeholder="Enter new review team"/>
+                    <PhotoInput placeholder="Upload new profile photo"/>
                     <button className="submit-button" type="submit"> &nbsp;Delete&nbsp; </button>
                   </div>
                 </form>
-              </div> */}
+              </div>
             </div>
             <div className="members-container">
               <div className="bold-title">
