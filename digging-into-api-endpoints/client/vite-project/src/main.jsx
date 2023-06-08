@@ -8,6 +8,7 @@ import ResourcesPage from './resources'
 import ContactPage from './contact'
 import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
 
+// creates the different routes so the website has a true website feel
 ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
         {/* <React.StrictMode> */}
